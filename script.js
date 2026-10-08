@@ -40,7 +40,8 @@ cta?.addEventListener('pointerleave',()=>cta.style.transform='');
 
 
 
-/* Uniform official-release cover galleries. No artist-profile embeds. */
+
+/* Strict attribution: do not show another artist's releases on label profiles. */
 (async function(){
  const artists=[
   {id:'ty3s',name:'LIL TY3S',artistId:1707765892},
@@ -49,36 +50,31 @@ cta?.addEventListener('pointerleave',()=>cta.style.transform='');
   {id:'kormina',name:'KORMINA'},
   {id:'cilianex',name:'CILIANEX'}
  ];
- function makeCard(item){
-  const link=document.createElement('a');link.className='release-cover-card';
-  link.href=item.collectionViewUrl||item.trackViewUrl||'#releases';
-  link.target='_blank';link.rel='noopener noreferrer';link.title=item.collectionName||item.trackName||'Релиз';
-  const wrap=document.createElement('div');wrap.className='release-cover-art';
-  const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.alt='Обложка: '+(item.collectionName||item.trackName||'релиз');
-  img.src=item.artworkUrl100.replace(/100x100bb|100x100/g,'600x600bb');
-  wrap.append(img);
-  const caption=document.createElement('span');caption.className='release-cover-caption';caption.textContent=item.collectionName||item.trackName;
-  link.append(wrap,caption);return link;
- }
- async function getJSON(url){
-  const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),12000);
-  try{const res=await fetch(url,{signal:ctrl.signal});if(!res.ok)throw Error('catalog unavailable');return await res.json()}finally{clearTimeout(timer)}
+ function card(item){
+  const a=document.createElement('a');a.className='release-cover-card';a.href=item.collectionViewUrl;a.target='_blank';a.rel='noopener noreferrer';
+  const box=document.createElement('div');box.className='release-cover-art';
+  const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.alt='Обложка '+item.collectionName;img.src=item.artworkUrl100.replace(/100x100bb/g,'600x600bb');box.append(img);
+  const title=document.createElement('span');title.className='release-cover-caption';title.textContent=item.collectionName;a.append(box,title);return a;
  }
  for(const artist of artists){
   const grid=document.getElementById('covers-'+artist.id);if(!grid)continue;
+  grid.replaceChildren();
+  if(!artist.artistId&&artist.id!=='blessty'){
+   const p=document.createElement('p');p.className='release-state';p.textContent='Обложки релизов SoundCloud пока не подтверждены.';grid.append(p);continue;
+  }
+  const url=artist.artistId?'https://itunes.apple.com/lookup?id='+artist.artistId+'&entity=album&limit=200&country=ua':
+   'https://itunes.apple.com/search?term='+encodeURIComponent('плачу blessty lil_ty3s')+'&entity=album&limit=100&country=ua';
   try{
-   const url=artist.artistId?
-    'https://itunes.apple.com/lookup?id='+artist.artistId+'&entity=album&limit=200&country=ua':
-    'https://itunes.apple.com/search?term='+encodeURIComponent(artist.name)+'&entity=album&attribute=artistTerm&limit=200&country=ua';
-   const data=await getJSON(url);
-   const items=(data.results||[]).filter(x=>x.wrapperType==='collection'&&x.artworkUrl100&&(
-    artist.artistId?Number(x.artistId)===artist.artistId:
-    (x.artistName||'').trim().toLowerCase()===artist.name.toLowerCase()
-   ));
+   const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),9000);
+   let res;try{res=await fetch(url,{signal:ctl.signal})}finally{clearTimeout(timer)}
+   if(!res.ok)throw Error('Unavailable');
+   const data=await res.json();
+   const all=(data.results||[]).filter(x=>x.wrapperType==='collection'&&x.artworkUrl100&&x.collectionViewUrl);
+   const items=all.filter(x=>artist.artistId?Number(x.artistId)===artist.artistId:
+     /плачу/i.test(x.collectionName||'')&&/blessty/i.test(x.artistName||'')&&/ty3s/i.test(x.artistName||''));
    const unique=[...new Map(items.map(x=>[x.collectionId,x])).values()].sort((a,b)=>(b.releaseDate||'').localeCompare(a.releaseDate||''));
-   grid.replaceChildren();
-   if(!unique.length){const p=document.createElement('p');p.className='release-state';p.textContent='Подтверждённых обложек в Apple Music пока нет.';grid.append(p);continue}
-   for(const item of unique)grid.append(makeCard(item));
-  }catch(e){grid.replaceChildren();const p=document.createElement('p');p.className='release-state';p.textContent='Не удалось загрузить обложки. Откройте профиль артиста по ссылке выше.';grid.append(p)}
+   for(const item of (artist.id==='blessty'?unique.slice(0,1):unique))grid.append(card(item));
+   if(!grid.children.length){const p=document.createElement('p');p.className='release-state';p.textContent=artist.id==='blessty'?'Плачу (feat. LIL TY3S) — обложка ожидает подтверждения.':'Не удалось подтвердить обложки релизов.';grid.append(p)}
+  }catch(e){const p=document.createElement('p');p.className='release-state';p.textContent='Обложки временно недоступны.';grid.append(p)}
  }
 })();
