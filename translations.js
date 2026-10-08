@@ -16,3 +16,74 @@ function setLanguage(lang){
 document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.lang)));
 let preferred='en';try{preferred=localStorage.getItem('eternity-language')||'en'}catch(e){}
 setLanguage(preferred);
+
+
+/* New content translations — all site additions, RU / UA / EN */
+const extraTranslations = [
+["PRODUCER","ПРОДЮСЕР","ПРОДЮСЕР"],
+["PRODUCER / ETERNITY RECORDS","ПРОДЮСЕР / ETERNITY RECORDS","ПРОДЮСЕР / ETERNITY RECORDS"],
+["PRODUCER / SOUND ENGINEER / ETERNITY RECORDS","ПРОДЮСЕР / ЗВУКОРЕЖИССЁР / ETERNITY RECORDS","ПРОДЮСЕР / ЗВУКОРЕЖИСЕР / ETERNITY RECORDS"],
+["← BACK TO ROSTER","← К СОСТАВУ","← ДО СКЛАДУ"],
+["KID — продюсер Eternity Records. Он не любит много рассказывать о себе, предпочитая, чтобы за него говорила музыка.","KID — продюсер Eternity Records. Он не любит много рассказывать о себе, предпочитая, чтобы за него говорила музыка.","KID — продюсер Eternity Records. Він не любить багато розповідати про себе, воліючи, щоб за нього говорила музика."],
+["ANUFRIEV — украинский музыкальный продюсер и звукорежиссёр из Вышгорода. Занимается музыкой с 2018 года, работая на пересечении трэпа, рэпа, рока, поп-музыки, хайперпопа и хайпертрэпа.","ANUFRIEV — украинский музыкальный продюсер и звукорежиссёр из Вышгорода. Занимается музыкой с 2018 года, работая на пересечении трэпа, рэпа, рока, поп-музыки, хайперпопа и хайпертрэпа.","ANUFRIEV — український музичний продюсер і звукорежисер із Вишгорода. Займається музикою з 2018 року, працюючи на перетині трепу, репу, року, попмузики, гіперпопу та гіпертрепу."],
+["Сотрудничал с многочисленными независимыми артистами, занимаясь музыкальным продакшном и работой со звуком.","Сотрудничал с многочисленными независимыми артистами, занимаясь музыкальным продакшном и работой со звуком.","Співпрацював із численними незалежними артистами, займаючись музичним продакшном і роботою зі звуком."],
+["Также работает саунд-инженером на студии Oper 8 в Амстердаме, где занимается сведением записей независимых исполнителей.","Также работает саунд-инженером на студии Oper 8 в Амстердаме, где занимается сведением записей независимых исполнителей.","Також працює саундінженером на студії Oper 8 в Амстердамі, де займається зведенням записів незалежних виконавців."],
+["Игорь Ануфриев · Вышгород, Украина","Игорь Ануфриев · Вышгород, Украина","Ігор Ануфрієв · Вишгород, Україна"],
+["CONTACT","КОНТАКТ","КОНТАКТ"],
+["LABEL CONTACT ↗","КОНТАКТ ЛЕЙБЛА ↗","КОНТАКТ ЛЕЙБЛУ ↗"],
+["03 / SERVICES","03 / УСЛУГИ","03 / ПОСЛУГИ"],
+["FOR ARTISTS","ДЛЯ АРТИСТОВ","ДЛЯ АРТИСТІВ"],
+["02 / ETERNITY RELEASES","02 / РЕЛИЗЫ ETERNITY","02 / РЕЛІЗИ ETERNITY"],
+["OFFICIAL COVER ART ONLY","ТОЛЬКО ОФИЦИАЛЬНЫЕ ОБЛОЖКИ","ЛИШЕ ОФІЦІЙНІ ОБКЛАДИНКИ"],
+["ДИСКОГРАФИЯ","ДИСКОГРАФИЯ","ДИСКОГРАФІЯ"],
+["Релизы артистов лейбла · только оригинальные обложки","Релизы артистов лейбла · только оригинальные обложки","Релізи артистів лейблу · лише оригінальні обкладинки"],
+["ETERNITY BEAT STORE / 001","МАГАЗИН БИТОВ ETERNITY / 001","МАГАЗИН БІТІВ ETERNITY / 001"],
+["ETERNITY BEAT STORE / 002","МАГАЗИН БИТОВ ETERNITY / 002","МАГАЗИН БІТІВ ETERNITY / 002"],
+["ETERNITY BEAT STORE / 003","МАГАЗИН БИТОВ ETERNITY / 003","МАГАЗИН БІТІВ ETERNITY / 003"],
+["ETERNITY BEAT STORE / 004","МАГАЗИН БИТОВ ETERNITY / 004","МАГАЗИН БІТІВ ETERNITY / 004"],
+["ETERNITY / PRICING","ETERNITY / ПРАЙС","ETERNITY / ПРАЙС"],
+["LICENSES","ЛИЦЕНЗИИ","ЛІЦЕНЗІЇ"],
+["& SERVICES","И УСЛУГИ","ТА ПОСЛУГИ"],
+["MP3 LEASE","MP3 ЛИЦЕНЗИЯ","MP3 ЛІЦЕНЗІЯ"],
+["WAV LEASE","WAV ЛИЦЕНЗИЯ","WAV ЛІЦЕНЗІЯ"],
+["UNLIMITED LEASE","БЕЗЛИМИТНАЯ ЛИЦЕНЗИЯ","БЕЗЛІМІТНА ЛІЦЕНЗІЯ"],
+["TRACK OUT","ДОРОЖКИ (TRACK OUT)","ДОРІЖКИ (TRACK OUT)"],
+["DM","В ЛИЧНЫЕ","У ПРИВАТ"],
+["MIX","СВЕДЕНИЕ","ЗВЕДЕННЯ"],
+["MASTER","МАСТЕРИНГ","МАСТЕРИНГ"],
+["TRACK PRODUCTION","ПРОДАКШН ТРЕКА","ПРОДАКШН ТРЕКУ"],
+["STARTING AT $40","ОТ $40","ВІД $40"],
+["STARTING AT $80","ОТ $80","ВІД $80"],
+["OTHER / MORE INFO — CONTACT ↗","ДРУГИЕ УСЛУГИ / ПОДРОБНОСТИ — СВЯЗАТЬСЯ ↗","ІНШІ ПОСЛУГИ / ДЕТАЛІ — ЗВ’ЯЗАТИСЯ ↗"],
+["PRICE: $35 USD · PAYMENT INTEGRATION COMING SOON","ЦЕНА: $35 · ОПЛАТА НА САЙТЕ СКОРО","ЦІНА: $35 · ОПЛАТА НА САЙТІ НЕЗАБАРОМ"],
+["BUY FOR $35 ↗","КУПИТЬ ЗА $35 ↗","КУПИТИ ЗА $35 ↗"],
+["PROD. LIL ONIXXX × TENGO","ПРОД. LIL ONIXXX × TENGO","ПРОД. LIL ONIXXX × TENGO"],
+["PROD. KID","ПРОД. KID","ПРОД. KID"],
+["PROD. ANUFRIEV","ПРОД. ANUFRIEV","ПРОД. ANUFRIEV"],
+["PROD. @CILIANEXQQ","ПРОД. @CILIANEXQQ","ПРОД. @CILIANEXQQ"],
+["Обложки релизов SoundCloud пока не подтверждены.","Обложки релизов SoundCloud пока не подтверждены.","Обкладинки релізів SoundCloud поки не підтверджені."],
+["Открыть каталог релизов ↗","Открыть каталог релизов ↗","Відкрити каталог релізів ↗"],
+["ALL RIGHTS RESERVED","ВСЕ ПРАВА ЗАЩИЩЕНЫ","УСІ ПРАВА ЗАХИЩЕНІ"]
+];
+const extraTranslationMap=new Map(extraTranslations.map(([en,ru,ua])=>[en,{en,ru,ua}]));
+// Keep text-node translations reversible and preserve nested markup, links and players.
+const extraNodes=[];
+const extraSelectors=['.producer-feature','.profiles-section','.release-gallery','.services','.contact','footer'];
+for(const selector of extraSelectors){
+ const root=document.querySelector(selector);if(!root)continue;
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+ while(walker.nextNode()){
+  const node=walker.currentNode;
+  if(node.parentElement?.closest('[data-i18n-id],script,style'))continue;
+  const value=node.nodeValue.trim();
+  if(!value)continue;
+  const entry=extraTranslationMap.get(value);
+  if(entry)extraNodes.push({node,entry});
+ }
+}
+const originalSetLanguage=setLanguage;
+setLanguage=function(lang){
+ originalSetLanguage(lang);
+ for(const {node,entry} of extraNodes)node.nodeValue=entry[lang]||entry.en;
+};
+setLanguage((()=>{try{return localStorage.getItem('eternity-language')||'en'}catch(e){return 'en'}})());
