@@ -161,3 +161,5 @@ body{font-family:'Manrope','Inter',Arial,sans-serif}
 .release-cover-caption{display:block;margin-top:10px;font:700 13px/1.5 'Manrope',sans-serif;overflow-wrap:anywhere}
 .release-state{color:#999;font:500 13px/1.6 'Manrope',sans-serif}
 @media(max-width:600px){.release-cover-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.release-gallery{padding-top:65px}.release-artist{margin-bottom:48px}.release-subtitle{margin-bottom:42px}}
+
+.release-cover-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;background:radial-gradient(circle at 70% 20%,#5b5b5b,#151515 48%,#050505);text-align:center;padding:12px}.release-cover-placeholder span{font:800 clamp(25px,3vw,48px)/1 'Manrope',sans-serif;letter-spacing:-.055em;color:#fff}.release-cover-placeholder small{font:700 10px 'Manrope',sans-serif;letter-spacing:.1em;color:#aaa}
