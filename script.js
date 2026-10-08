@@ -195,3 +195,14 @@ form.addEventListener('submit',async e=>{
 });
 recalc();
 })();
+
+/* Beat Store category translations */
+(()=>{
+const dict={
+en:{nav:'BEAT STORE',eyebrow:'04 / ETERNITY RECORDS',heading:'BEAT STORE',subtitle:'EXPLORE BEATS · SELECT A LICENSE · SEND AN ORDER REQUEST'},
+ru:{nav:'МАГАЗИН БИТОВ',eyebrow:'04 / ETERNITY RECORDS',heading:'МАГАЗИН БИТОВ',subtitle:'ВЫБЕРИ БИТ · ЛИЦЕНЗИЮ · ОТПРАВЬ ЗАЯВКУ'},
+ua:{nav:'МАГАЗИН БІТІВ',eyebrow:'04 / ETERNITY RECORDS',heading:'МАГАЗИН БІТІВ',subtitle:'ОБЕРИ БІТ · ЛІЦЕНЗІЮ · НАДІШЛИ ЗАЯВКУ'}
+};
+function apply(){const l=document.documentElement.lang==='uk'?'ua':document.documentElement.lang==='ru'?'ru':'en';document.querySelectorAll('[data-shop-lang]').forEach(el=>el.textContent=dict[l][el.dataset.shopLang]||'')}
+apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',apply));
+})();
