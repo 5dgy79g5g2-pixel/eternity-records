@@ -312,3 +312,11 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-logo-dark-pulse{0%,49%,51%,100%{opacity:1}49.4%{opacity:.73}50%{opacity:1;filter:brightness(1.5)}}
 @media(max-width:700px){.etr-shard{opacity:calc(var(--o) * .65)}.hero-home .etr-architecture{opacity:.45}}
 @media(prefers-reduced-motion:reduce){.etr-shard,.hero-home .etr-red-signal,.hero-home .hero-logo{animation:none!important}}
+
+
+/* Transparent original artwork + freely flying chrome fragments */
+.hero-home .hero-logo{mix-blend-mode:normal!important;background:transparent!important;object-fit:contain!important;filter:drop-shadow(0 0 15px rgba(220,225,235,.13))!important}
+.hero-home .etr-shards{overflow:hidden;z-index:6}
+.hero-home .etr-shard{clip-path:polygon(50% 0%,92% 18%,72% 48%,100% 86%,39% 100%,0% 70%,22% 40%)!important;border-radius:0;animation:etr-shard-flight var(--dur) linear infinite!important;animation-delay:var(--delay)!important;transform-origin:50% 50%;filter:drop-shadow(0 0 8px rgba(255,255,255,.2))}
+@keyframes etr-shard-flight{0%{transform:translate3d(calc(var(--flyx) * -1),calc(var(--flyy) * -1),0) rotate(var(--r)) scale(.55);opacity:0}12%{opacity:var(--o)}82%{opacity:var(--o)}100%{transform:translate3d(var(--flyx),var(--flyy),0) rotate(calc(var(--r) + 145deg)) scale(1.3);opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero-home .etr-shard{animation:none!important}}
