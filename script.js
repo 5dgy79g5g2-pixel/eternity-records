@@ -39,34 +39,46 @@ cta?.addEventListener('pointermove',e=>{
 cta?.addEventListener('pointerleave',()=>cta.style.transform='');
 
 
-/* Official Apple Music catalog: dynamically fetch all published collections and original cover art. */
-(async function loadTy3sCatalog(){
- const grid=document.getElementById('ty3s-albums');if(!grid)return;
- const artistId=1707765892;
- const fallback=[['Censored - EP',2026],['Little - EP',2026],['плачу - Single',2025],['Аскорбін - Single',2025],['Ty3sseason',2025],['Work - Single',2025],['Мысли - EP',2025],['ВЕСНА - Single',2025],['Ty3s',2024],['Одесса 2015 - Single',2024],['Loser - Single',2024],['Замерзаю - Single',2024]];
- function render(items){
-  grid.replaceChildren();
-  for(const item of items){
-   const a=document.createElement('a');a.className='ty3s-album';a.href=item.collectionViewUrl||'https://music.apple.com/ua/artist/lil-ty3s/'+artistId;a.target='_blank';a.rel='noopener noreferrer';
-   const cover=document.createElement('div');cover.className='ty3s-album-cover';
-   if(item.artworkUrl100){const img=document.createElement('img');img.loading='lazy';img.alt='Official artwork: '+item.collectionName;img.src=item.artworkUrl100.replace(/100x100bb/g,'600x600bb');cover.append(img)}
-   else{const span=document.createElement('span');span.textContent='LIL TY3S';cover.append(span)}
-   const name=document.createElement('strong');name.textContent=item.collectionName;
-   const meta=document.createElement('small');meta.textContent=(item.releaseDate||'').slice(0,4)+' · APPLE MUSIC ↗';
-   a.append(cover,name,meta);grid.append(a);
-  }
+
+/* Uniform official-release cover galleries. No artist-profile embeds. */
+(async function(){
+ const artists=[
+  {id:'ty3s',name:'LIL TY3S',artistId:1707765892},
+  {id:'blessty',name:'BLESSTY'},
+  {id:'emopluck',name:'EMOPLUCK'},
+  {id:'kormina',name:'KORMINA'},
+  {id:'cilianex',name:'CILIANEX'}
+ ];
+ function makeCard(item){
+  const link=document.createElement('a');link.className='release-cover-card';
+  link.href=item.collectionViewUrl||item.trackViewUrl||'#releases';
+  link.target='_blank';link.rel='noopener noreferrer';link.title=item.collectionName||item.trackName||'Релиз';
+  const wrap=document.createElement('div');wrap.className='release-cover-art';
+  const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.alt='Обложка: '+(item.collectionName||item.trackName||'релиз');
+  img.src=item.artworkUrl100.replace(/100x100bb|100x100/g,'600x600bb');
+  wrap.append(img);
+  const caption=document.createElement('span');caption.className='release-cover-caption';caption.textContent=item.collectionName||item.trackName;
+  link.append(wrap,caption);return link;
  }
- try{
-  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),10000);
-  const response=await fetch('https://itunes.apple.com/lookup?id='+artistId+'&entity=album&limit=200&country=us',{signal:controller.signal});clearTimeout(timeout);
-  if(!response.ok)throw Error('Apple catalog unavailable');
-  const json=await response.json();
-  const albums=(json.results||[]).filter(x=>x.wrapperType==='collection'&&String(x.artistId)===String(artistId));
-  const unique=[...new Map(albums.map(x=>[x.collectionId,x])).values()].sort((a,b)=>(b.releaseDate||'').localeCompare(a.releaseDate||''));
-  if(!unique.length)throw Error('No collections returned');
-  render(unique);
- }catch(e){
-  render(fallback.map(([collectionName,year])=>({collectionName,releaseDate:String(year),collectionViewUrl:'https://music.apple.com/ua/artist/lil-ty3s/'+artistId})));
-  const note=document.createElement('p');note.className='ty3s-loading';note.textContent='For the complete live catalog and original covers, open Apple Music above.';grid.after(note);
+ async function getJSON(url){
+  const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),12000);
+  try{const res=await fetch(url,{signal:ctrl.signal});if(!res.ok)throw Error('catalog unavailable');return await res.json()}finally{clearTimeout(timer)}
+ }
+ for(const artist of artists){
+  const grid=document.getElementById('covers-'+artist.id);if(!grid)continue;
+  try{
+   const url=artist.artistId?
+    'https://itunes.apple.com/lookup?id='+artist.artistId+'&entity=album&limit=200&country=ua':
+    'https://itunes.apple.com/search?term='+encodeURIComponent(artist.name)+'&entity=album&attribute=artistTerm&limit=200&country=ua';
+   const data=await getJSON(url);
+   const items=(data.results||[]).filter(x=>x.wrapperType==='collection'&&x.artworkUrl100&&(
+    artist.artistId?Number(x.artistId)===artist.artistId:
+    (x.artistName||'').trim().toLowerCase()===artist.name.toLowerCase()
+   ));
+   const unique=[...new Map(items.map(x=>[x.collectionId,x])).values()].sort((a,b)=>(b.releaseDate||'').localeCompare(a.releaseDate||''));
+   grid.replaceChildren();
+   if(!unique.length){const p=document.createElement('p');p.className='release-state';p.textContent='Подтверждённых обложек в Apple Music пока нет.';grid.append(p);continue}
+   for(const item of unique)grid.append(makeCard(item));
+  }catch(e){grid.replaceChildren();const p=document.createElement('p');p.className='release-state';p.textContent='Не удалось загрузить обложки. Откройте профиль артиста по ссылке выше.';grid.append(p)}
  }
 })();
