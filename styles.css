@@ -413,3 +413,10 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .etr-shard{opacity:var(--o)!important;animation:etr-shard-flight var(--dur) linear infinite!important}
 @media(max-width:700px){.hero-home .etr-chain-motion{width:27%;opacity:.5}.hero-home .hero-logo{animation:etr-logo-float-v17 7s ease-in-out infinite!important}}
 @media(prefers-reduced-motion:reduce){.hero-home .hero-logo,.hero-home .etr-chain-motion,.hero-home .etr-scene-fog,.hero-home .etr-scene-glow{animation:none!important}}
+
+
+/* V18: highlights only on actual transparent chrome pixels; no visible overlay edges */
+.hero-home .hero-logo-wrap::before,.hero-home .hero-logo-wrap::after,.hero-home .logo-scan,.hero-home .logo-aura,.hero-home .logo-shadow{display:none!important;content:none!important}
+.hero-home .hero-logo-wrap{background:transparent!important;box-shadow:none!important;filter:none!important;overflow:visible!important}
+.hero-home .hero-logo{background:transparent!important;mix-blend-mode:normal!important;filter:drop-shadow(0 0 12px rgba(214,223,239,.17))!important;opacity:1!important}
+.hero-home .hero-logo-wrap .logo-shine,.hero-home .hero-logo-wrap .logo-shine::after{display:none!important}
