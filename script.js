@@ -236,3 +236,25 @@ apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventLi
   volume.addEventListener('input',()=>{audio.volume=Number(volume.value);audio.muted=audio.volume===0;mute.textContent=audio.muted?'MUTED':'VOL'});
  });
 })();
+
+
+/* Ambient label-name glitch flashes: low frequency, no layout shifts. */
+(()=>{
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const layer=document.createElement('div');layer.className='et-flash-layer';layer.setAttribute('aria-hidden','true');document.body.append(layer);
+ const names=['ETERNITY','ETERNITY RECORDS','LIL TY3S','EMOPLUCK','BLESSTY','KORMINA','CILIANEX','LIL ONIXXX','ANUFRIEV','KID'];
+ let timer,previous=-1;
+ const flash=()=>{
+  if(document.hidden){timer=setTimeout(flash,5000);return}
+  let index=Math.floor(Math.random()*names.length);if(index===previous)index=(index+1)%names.length;previous=index;
+  const word=document.createElement('span');word.className='et-flash-word';word.textContent=names[index];word.dataset.text=names[index];
+  word.style.setProperty('--flash-x',(25+Math.random()*50).toFixed(1)+'%');
+  word.style.setProperty('--flash-y',(19+Math.random()*62).toFixed(1)+'%');
+  const scan=document.createElement('span');scan.className='et-flash-slice';scan.style.setProperty('--slice-y',(10+Math.random()*80).toFixed(1)+'%');
+  layer.replaceChildren(word,scan);
+  setTimeout(()=>{if(layer.contains(word))layer.replaceChildren()},350);
+  timer=setTimeout(flash,4500+Math.random()*6500);
+ };
+ timer=setTimeout(flash,2600+Math.random()*3200);
+ window.addEventListener('pagehide',()=>clearTimeout(timer));
+})();
