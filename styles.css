@@ -163,3 +163,27 @@ body{font-family:'Manrope','Inter',Arial,sans-serif}
 @media(max-width:600px){.release-cover-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.release-gallery{padding-top:65px}.release-artist{margin-bottom:48px}.release-subtitle{margin-bottom:42px}}
 
 .release-cover-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;background:radial-gradient(circle at 70% 20%,#5b5b5b,#151515 48%,#050505);text-align:center;padding:12px}.release-cover-placeholder span{font:800 clamp(25px,3vw,48px)/1 'Manrope',sans-serif;letter-spacing:-.055em;color:#fff}.release-cover-placeholder small{font:700 10px 'Manrope',sans-serif;letter-spacing:.1em;color:#aaa}
+
+
+/* ETERNITY / corrupted-signal hover typography */
+.etr-glitch-hover{position:relative;isolation:isolate}
+.etr-glitch-hover::before,.etr-glitch-hover::after{content:attr(data-etr-glitch);position:absolute;inset:0;pointer-events:none;opacity:0;white-space:pre-wrap;font:inherit;letter-spacing:inherit;line-height:inherit;text-align:inherit;text-transform:inherit}
+.etr-glitch-hover:hover::before,.etr-glitch-hover:focus-visible::before{opacity:.82;color:#f6f6f6;text-shadow:-2px 0 #ad102c;animation:etr-signal-a .53s steps(1,end) infinite}
+.etr-glitch-hover:hover::after,.etr-glitch-hover:focus-visible::after{opacity:.7;color:#aaa;text-shadow:2px 0 #5b6d77;animation:etr-signal-b .42s steps(1,end) infinite}
+.etr-glitch-hover:hover,.etr-glitch-hover:focus-visible{text-shadow:1px 0 rgba(210,20,48,.7),-1px 0 rgba(255,255,255,.5)}
+@keyframes etr-signal-a{
+0%,100%{transform:translate(0);clip-path:inset(0 0 100% 0)}
+12%{transform:translate(-4px,1px);clip-path:inset(12% 0 66% 0)}
+27%{transform:translate(5px,-1px);clip-path:inset(57% 0 20% 0)}
+42%{transform:translate(-2px,0);clip-path:inset(33% 0 48% 0)}
+56%,84%{transform:translate(0);clip-path:inset(0 0 100% 0)}
+90%{transform:translate(3px,1px);clip-path:inset(76% 0 9% 0)}
+}
+@keyframes etr-signal-b{
+0%,100%{transform:translate(0);clip-path:inset(0 0 100% 0)}
+18%{transform:translate(4px,-1px);clip-path:inset(69% 0 12% 0)}
+37%{transform:translate(-5px,2px);clip-path:inset(18% 0 63% 0)}
+52%,76%{transform:translate(0);clip-path:inset(0 0 100% 0)}
+88%{transform:translate(-3px,-1px);clip-path:inset(46% 0 36% 0)}
+}
+@media(prefers-reduced-motion:reduce){.etr-glitch-hover:hover::before,.etr-glitch-hover:hover::after,.etr-glitch-hover:focus-visible::before,.etr-glitch-hover:focus-visible::after{animation:none;opacity:0}.etr-glitch-hover:hover{ text-shadow:none }}
