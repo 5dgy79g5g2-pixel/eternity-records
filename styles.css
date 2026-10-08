@@ -289,3 +289,26 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-aura-pulse{50%{transform:scale(1.22);opacity:.9}}
 @media(max-width:700px){.hero-home .hero-signal-beam{filter:blur(38px)}.hero-home .hero-logo{filter:contrast(1.3) brightness(1.1)}}
 @media(prefers-reduced-motion:reduce){.hero-home .hero-logo,.hero-home .logo-aura,.hero-home .hero-signal-beam,.hero-home .hero-signal-rings,.hero-home::before{animation:none!important}}
+
+
+/* ETERNITY / OBSIDIAN SHARDS — gothic chrome, reactive parallax */
+.hero-home{background:#010101!important}
+.hero-home::before{background:radial-gradient(ellipse at 50% 45%,rgba(47,48,54,.22),transparent 49%),linear-gradient(90deg,#000,rgba(16,16,19,.65) 24%,#010101 50%,rgba(16,16,19,.65) 76%,#000)!important;filter:none!important;inset:0!important;animation:none!important}
+.hero-home .hero-signal-beam{opacity:.14!important;filter:grayscale(1) blur(85px)!important}
+.hero-home .hero-signal-rings{opacity:.17!important;filter:grayscale(1)}
+.hero-home .hero-grid{opacity:.13!important}
+.hero-home .etr-architecture{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(93deg,transparent 0 12%,rgba(185,190,203,.09) 12.08%,rgba(16,17,20,.8) 12.3%,transparent 12.7%,transparent 24%),linear-gradient(115deg,transparent 15%,rgba(220,225,238,.07) 15.15%,transparent 15.35%,transparent 75%,rgba(220,225,238,.06) 75.2%,transparent 75.5%);mask-image:linear-gradient(90deg,#000,transparent 36%,transparent 64%,#000);opacity:.85}
+.hero-home .etr-architecture::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 35px,rgba(180,185,196,.06) 36px,transparent 38px);opacity:.5}
+.hero-home .etr-shards{position:absolute;inset:0;overflow:hidden;z-index:6;pointer-events:none;perspective:900px}
+.etr-shard{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);opacity:var(--o);clip-path:polygon(48% 0%,100% 87%,66% 72%,5% 100%,30% 35%);background:linear-gradient(116deg,rgba(255,255,255,.92),rgba(25,27,32,.95) 18%,rgba(195,203,218,.9) 24%,rgba(5,6,9,.9) 48%,rgba(240,244,250,.8) 51%,rgba(20,23,29,.9) 59%,rgba(155,162,176,.65) 90%,transparent);filter:drop-shadow(0 0 8px rgba(230,235,245,.2));transform:translate3d(0,0,0) rotate(var(--r));animation:etr-shard-float var(--dur) ease-in-out infinite alternate;animation-delay:var(--delay);will-change:transform}
+.etr-shard::after{content:"";position:absolute;inset:12%;border-left:1px solid rgba(255,255,255,.7);transform:rotate(18deg)}
+@keyframes etr-shard-float{to{transform:translate3d(var(--dx),var(--dy),0) rotate(calc(var(--r) + 18deg))}}
+.hero-home .etr-red-signal{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;background:radial-gradient(ellipse 18% 30% at 18% 76%,rgba(225,0,20,.5),transparent 85%),radial-gradient(ellipse 17% 23% at 83% 24%,rgba(210,0,22,.42),transparent 85%),linear-gradient(90deg,transparent 49.95%,rgba(255,0,18,.13) 50%,transparent 50.1%);mix-blend-mode:screen;animation:etr-red-flash 15s steps(1,end) infinite}
+@keyframes etr-red-flash{0%,32%,34%,67%,69%,100%{opacity:0}32.3%,33%,67.2%,68%{opacity:.85}33.3%,68.3%{opacity:.15}}
+.hero-home .hero-logo-wrap{z-index:7!important}
+.hero-home .hero-logo{mix-blend-mode:screen!important;filter:contrast(1.7) brightness(1.13)!important;animation:etr-logo-dark-pulse 11s steps(1,end) infinite!important}
+.hero-home .logo-aura{background:radial-gradient(circle,rgba(110,110,120,.075),transparent 72%)!important}
+.hero-home .hero-logo-wrap::after{opacity:.3}
+@keyframes etr-logo-dark-pulse{0%,49%,51%,100%{opacity:1}49.4%{opacity:.73}50%{opacity:1;filter:brightness(1.5)}}
+@media(max-width:700px){.etr-shard{opacity:calc(var(--o) * .65)}.hero-home .etr-architecture{opacity:.45}}
+@media(prefers-reduced-motion:reduce){.etr-shard,.hero-home .etr-red-signal,.hero-home .hero-logo{animation:none!important}}
