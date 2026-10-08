@@ -262,3 +262,26 @@ apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventLi
  timer=setTimeout(burst,2000);
  window.addEventListener('pagehide',()=>{clearTimeout(timer);clearTimeout(off)});
 })();
+
+/* Custom crimson cursor, without interfering with forms or touch devices. */
+(()=>{
+ const supported=window.matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+ if(!supported.matches)return;
+ const cursor=document.createElement('div');cursor.className='et-custom-cursor';cursor.setAttribute('aria-hidden','true');document.body.append(cursor);
+ document.body.classList.add('et-cursor-enabled');
+ const interactive='a,button,[role="button"],input[type="range"],select,.artist-card,.release-cover-card';
+ const textFields='input:not([type="range"]),textarea,[contenteditable="true"]';
+ document.addEventListener('pointermove',e=>{
+  if(e.pointerType&&e.pointerType!=='mouse')return;
+  cursor.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0) translate(-50%,-50%)';
+  cursor.classList.add('et-visible');
+  const target=e.target instanceof Element?e.target:null;
+  cursor.classList.toggle('et-hover',!!target?.closest(interactive));
+  cursor.classList.toggle('et-text',!!target?.closest(textFields));
+ },{passive:true});
+ document.addEventListener('pointerdown',()=>cursor.classList.add('et-down'),{passive:true});
+ document.addEventListener('pointerup',()=>cursor.classList.remove('et-down'),{passive:true});
+ document.addEventListener('pointercancel',()=>cursor.classList.remove('et-down'),{passive:true});
+ document.addEventListener('mouseleave',()=>cursor.classList.remove('et-visible'));
+ window.addEventListener('blur',()=>cursor.classList.remove('et-visible'));
+})();
