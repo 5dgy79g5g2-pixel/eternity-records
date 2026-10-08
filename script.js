@@ -80,3 +80,16 @@ cta?.addEventListener('pointerleave',()=>cta.style.transform='');
   }catch(e){const p=document.createElement('p');p.className='release-state';p.textContent='Обложки временно недоступны.';grid.append(p)}
  }
 })();
+
+
+/* Add hover glitch to headings, artist names and navigation; keep original text accessible. */
+(function(){
+ const selectors=['.nav nav a','.brand','.artist-card .artist-name','.producer-name','.release-main-title','.release-artist-head h3','.section-head p','.service h3','.profile-panel h2','.hero-sub','.release-platforms a','.release-cover-caption'];
+ document.querySelectorAll(selectors.join(',')).forEach(el=>{
+  if(el.classList.contains('glitch')||el.querySelector('img,svg'))return;
+  const value=(el.textContent||'').trim();
+  if(!value||value.length>110||el.children.length)return;
+  el.classList.add('etr-glitch-hover');
+  el.setAttribute('data-etr-glitch',value);
+ });
+})();
