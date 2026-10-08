@@ -191,3 +191,10 @@ body{font-family:'Manrope','Inter',Arial,sans-serif}
 /* Footer chrome emblem: blend black artwork background into the site */
 footer{isolation:isolate}
 footer img[src="eternity-chrome.png"]{mix-blend-mode:screen;background:transparent;filter:contrast(1.22) brightness(1.12) drop-shadow(0 0 12px rgba(255,255,255,.12));}
+
+/* Crisp vector arrows instead of iOS emoji glyphs */
+.artist-card .arrow,.producer-row .producer-mark{font-size:0!important;line-height:0!important;display:inline-flex;align-items:center;justify-content:center;justify-self:end;width:42px;height:42px;border:1px solid rgba(255,255,255,.3);border-radius:50%;color:#f3f3f3;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.artist-card .arrow::after,.producer-row .producer-mark::after{content:"";display:block;width:15px;height:15px;background:currentColor;clip-path:polygon(25% 0,100% 0,100% 75%,82% 75%,82% 31%,13% 100%,0 87%,69% 18%,25% 18%)}
+.artist-card:hover .arrow,.artist-card:focus-visible .arrow,.producer-row:hover .producer-mark,.producer-row:focus-visible .producer-mark{background:#f4f4f4;color:#080808;border-color:#f4f4f4;transform:rotate(45deg)}
+@media(max-width:600px){.artist-card .arrow,.producer-row .producer-mark{width:36px;height:36px}.artist-card .arrow::after,.producer-row .producer-mark::after{width:13px;height:13px}}
+@media(prefers-reduced-motion:reduce){.artist-card .arrow,.producer-row .producer-mark{transition:none}}
