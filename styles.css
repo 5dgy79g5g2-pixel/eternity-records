@@ -364,3 +364,18 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .hero-topline,.hero-home .hero-bottomline,.hero-home .hero-status{z-index:10!important}
 .hero-home .etr-red-signal{z-index:6;opacity:0}
 @media(max-width:700px){.hero-home{background-position:center center!important}.hero-home .etr-shards{opacity:.45!important}}
+
+
+/* Seamless stage: conceal baked-in center emblem and UI from backdrop */
+.hero-home{isolation:isolate!important;background-position:center center!important}
+.hero-home::before{display:block!important;content:"";position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;opacity:1!important;animation:none!important;filter:none!important;background:radial-gradient(ellipse 38% 67% at 50% 45%,rgba(0,0,0,.99) 0%,rgba(0,0,0,.97) 63%,rgba(0,0,0,.78) 84%,transparent 100%),linear-gradient(to top,#020203 0%,rgba(0,0,0,.96) 8%,transparent 25%)!important}
+.hero-home .hero-logo-wrap{z-index:9!important}
+.hero-home .etr-shards{z-index:10!important}
+.hero-home .etr-red-signal{z-index:8!important}
+.hero-home .hero-topline,.hero-home .hero-bottomline,.hero-home .hero-status{z-index:12!important}
+.hero-home .hero-logo{animation:etr-chrome-hover 10s ease-in-out infinite!important}
+@keyframes etr-chrome-hover{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(0,-9px,0) scale(1.012)}}
+.hero-home{animation:etr-background-breathe 20s ease-in-out infinite alternate!important}
+@keyframes etr-background-breathe{from{background-size:100% auto}to{background-size:110% auto}}
+@media(max-width:800px){.hero-home::before{background:radial-gradient(ellipse 57% 60% at 50% 44%,#000 0%,rgba(0,0,0,.95) 65%,transparent 100%),linear-gradient(to top,#000,transparent 28%)!important}.hero-home{animation:none!important;background-size:cover!important}}
+@media(prefers-reduced-motion:reduce){.hero-home,.hero-home .hero-logo{animation:none!important}}
