@@ -164,7 +164,7 @@ ctx.restore();
 /* Beat store orders. Set Formspree endpoint after creating the form in Formspree dashboard.
    Until configured, do not transmit personal information or claim an order was saved. */
 (()=>{
-const FORMSPREE_ENDPOINT=''; // e.g. https://formspree.io/f/XXXXXXXX — set by label owner
+const FORMSPREE_ENDPOINT='https://formspree.io/f/xgaoklgl'; // e.g. https://formspree.io/f/XXXXXXXX — set by label owner
 const dialog=document.getElementById('beat-order-dialog'),form=document.getElementById('beat-order-form');
 if(!dialog||!form)return;
 const beat=form.querySelector('#order-beat'),license=form.querySelector('#order-license'),total=form.querySelector('#order-total'),price=form.querySelector('#order-price'),status=form.querySelector('#beat-order-status'),submit=form.querySelector('.beat-order-submit');
