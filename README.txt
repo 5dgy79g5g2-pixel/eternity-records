@@ -1,0 +1,1 @@
+ETERNITY RECORDS — updated original site\nOpen index.html. Artist names and LIL ONIXXX open their profile panels with supplied original photos and biographies. SoundCloud archive retained from previous update. Internet required for SoundCloud players and Google Fonts.\n
