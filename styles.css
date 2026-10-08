@@ -509,3 +509,24 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .et-player-seek::-moz-range-thumb,.et-player-volume::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid #171717}
 .et-player-mute{border:0;background:none;color:#ddd;cursor:pointer;font:700 10px 'Space Grotesk',sans-serif;letter-spacing:.08em;padding:8px 0}
 @media(max-width:540px){.et-player{gap:10px;padding:12px}.et-player-play{flex-basis:40px;width:40px;height:40px}.et-player-volume{display:none}.et-player-top{font-size:9px;letter-spacing:.03em}}
+
+
+/* ETERNITY — crimson glass beat player */
+.et-player{position:relative;overflow:hidden;background:linear-gradient(120deg,#27090f 0%,#13080b 53%,#090709 100%);border:1px solid #75303c;border-radius:16px;box-shadow:inset 0 1px 0 #ffffff12,0 16px 34px #0008,0 0 26px #b7193214;padding:19px 20px;gap:16px;transition:border-color .25s,box-shadow .25s,transform .25s}
+.et-player::before{content:"";pointer-events:none;position:absolute;inset:0;background:radial-gradient(ellipse at 7% 0%,#d627422c,transparent 48%);opacity:.85}
+.et-player>*{position:relative;z-index:1}
+.et-player:hover{border-color:#c94a60;box-shadow:0 16px 40px #0009,0 0 30px #cf183226}
+.et-player.is-playing{border-color:#e34c65;box-shadow:inset 0 1px 0 #ffffff20,0 0 0 1px #e53e5a22,0 14px 36px #0009,0 0 35px #d8244936}
+.et-player-play{background:linear-gradient(145deg,#ff526c,#ad1736);color:#fff;box-shadow:0 5px 20px #e5254d55;border:1px solid #ff8b9b70;font-size:18px;width:50px;height:50px;flex-basis:50px}
+.et-player-play:hover{transform:scale(1.08);box-shadow:0 5px 28px #ff3b627d}
+.et-player.is-playing .et-player-play{animation:et-beat-glow 2.1s ease-in-out infinite}
+@keyframes et-beat-glow{0%,100%{box-shadow:0 0 12px #df294a66}50%{box-shadow:0 0 26px #f23e6688}}
+.et-player-top{color:#e1a8b3;letter-spacing:.15em;font-size:10px}
+.et-player-time{color:#ffe4e8}
+.et-player-seek{height:5px;background:linear-gradient(to right,#ff526c var(--progress,0%),#66313c var(--progress,0%));box-shadow:0 1px 5px #0008}
+.et-player-seek::-webkit-slider-thumb,.et-player-volume::-webkit-slider-thumb{background:#ff5a74;border:2px solid #ffcad2;box-shadow:0 0 10px #ed3e5e66}
+.et-player-seek::-moz-range-thumb,.et-player-volume::-moz-range-thumb{background:#ff5a74;border:2px solid #ffcad2}
+.et-player-mute{color:#ffc2cc}
+.et-player-volume{background:#823a48;accent-color:#ff526c}
+@media(max-width:540px){.et-player{padding:14px 12px;gap:10px}.et-player-play{width:42px;height:42px;flex-basis:42px}}
+@media(prefers-reduced-motion:reduce){.et-player.is-playing .et-player-play{animation:none}}
