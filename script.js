@@ -238,23 +238,27 @@ apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventLi
 })();
 
 
-/* Ambient label-name glitch flashes: low frequency, no layout shifts. */
+
+/* Random short analog-video glitch bursts, paused in background tabs. */
 (()=>{
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const layer=document.createElement('div');layer.className='et-flash-layer';layer.setAttribute('aria-hidden','true');document.body.append(layer);
- const names=['ETERNITY','ETERNITY RECORDS','LIL TY3S','EMOPLUCK','BLESSTY','KORMINA','CILIANEX','LIL ONIXXX','ANUFRIEV','KID'];
- let timer,previous=-1;
- const flash=()=>{
-  if(document.hidden){timer=setTimeout(flash,5000);return}
-  let index=Math.floor(Math.random()*names.length);if(index===previous)index=(index+1)%names.length;previous=index;
-  const word=document.createElement('span');word.className='et-flash-word';word.textContent=names[index];word.dataset.text=names[index];
-  word.style.setProperty('--flash-x',(25+Math.random()*50).toFixed(1)+'%');
-  word.style.setProperty('--flash-y',(19+Math.random()*62).toFixed(1)+'%');
-  const scan=document.createElement('span');scan.className='et-flash-slice';scan.style.setProperty('--slice-y',(10+Math.random()*80).toFixed(1)+'%');
-  layer.replaceChildren(word,scan);
-  setTimeout(()=>{if(layer.contains(word))layer.replaceChildren()},350);
-  timer=setTimeout(flash,4500+Math.random()*6500);
+ const layer=document.createElement('div');layer.className='et-corrupt';layer.setAttribute('aria-hidden','true');
+ layer.innerHTML='<div class="et-corrupt-noise"></div><div class="et-corrupt-band"></div><div class="et-corrupt-band second"></div><div class="et-corrupt-rgb"></div>';
+ document.body.append(layer);
+ let timer,off;
+ const burst=()=>{
+  if(document.hidden){timer=setTimeout(burst,4500);return}
+  const rand=(a,b)=>a+Math.random()*(b-a);
+  layer.style.setProperty('--tear-y',rand(12,75)+'%');
+  layer.style.setProperty('--tear-y2',rand(15,88)+'%');
+  layer.style.setProperty('--tear-h',rand(4,15)+'%');
+  layer.style.setProperty('--tear-h2',rand(2,8)+'%');
+  layer.style.setProperty('--tear-x',rand(-6,6)+'%');
+  layer.style.setProperty('--tear-x2',rand(-8,8)+'%');
+  layer.classList.add('active');
+  off=setTimeout(()=>layer.classList.remove('active'),rand(110,220));
+  timer=setTimeout(burst,rand(3200,7500));
  };
- timer=setTimeout(flash,2600+Math.random()*3200);
- window.addEventListener('pagehide',()=>clearTimeout(timer));
+ timer=setTimeout(burst,2000);
+ window.addEventListener('pagehide',()=>{clearTimeout(timer);clearTimeout(off)});
 })();
