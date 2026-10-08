@@ -159,3 +159,39 @@ for(const e of embers){const x=(e.x+Math.sin(t*.3+e.phase)*.017)*W,y=((e.y-t*e.s
 ctx.restore();
 }requestAnimationFrame(frame);
 })();
+
+
+/* Beat store orders. Set Formspree endpoint after creating the form in Formspree dashboard.
+   Until configured, do not transmit personal information or claim an order was saved. */
+(()=>{
+const FORMSPREE_ENDPOINT=''; // e.g. https://formspree.io/f/XXXXXXXX — set by label owner
+const dialog=document.getElementById('beat-order-dialog'),form=document.getElementById('beat-order-form');
+if(!dialog||!form)return;
+const beat=form.querySelector('#order-beat'),license=form.querySelector('#order-license'),total=form.querySelector('#order-total'),price=form.querySelector('#order-price'),status=form.querySelector('#beat-order-status'),submit=form.querySelector('.beat-order-submit');
+const prices={'MP3 Lease':35,'WAV Lease':70,'Unlimited Lease':115};
+const labels={
+ en:{heading:'ETERNITY / ORDER REQUEST',title:'ORDER A BEAT',note:'Order request only. No payment will be taken.',beat:'BEAT',license:'LICENSE',total:'TOTAL',name:'YOUR NAME',consent:'I agree to share these details with Eternity Records to process my order request.',submit:'SEND ORDER REQUEST ↗',pending:'Order collection is not connected yet. Please contact the label; no details have been sent.',sending:'SENDING...',success:'Request received! This is not a payment confirmation.',error:'Could not send your request. Please try again or contact the label.'},
+ ru:{heading:'ETERNITY / ЗАЯВКА',title:'ЗАКАЗАТЬ БИТ',note:'Только заявка. Оплата на сайте не производится.',beat:'БИТ',license:'ЛИЦЕНЗИЯ',total:'ИТОГО',name:'ВАШЕ ИМЯ',consent:'Я согласен передать эти данные Eternity Records для обработки заявки.',submit:'ОТПРАВИТЬ ЗАЯВКУ ↗',pending:'Приём заявок пока не подключён. Свяжитесь с лейблом; ваши данные не отправлены.',sending:'ОТПРАВКА...',success:'Заявка получена! Это не подтверждение оплаты.',error:'Не удалось отправить заявку. Попробуйте снова или свяжитесь с лейблом.'},
+ ua:{heading:'ETERNITY / ЗАЯВКА',title:'ЗАМОВИТИ БІТ',note:'Лише заявка. Оплата на сайті не здійснюється.',beat:'БІТ',license:'ЛІЦЕНЗІЯ',total:'РАЗОМ',name:'ВАШЕ ІМ’Я',consent:'Я погоджуюся передати ці дані Eternity Records для обробки заявки.',submit:'НАДІСЛАТИ ЗАЯВКУ ↗',pending:'Приймання заявок ще не підключено. Зв’яжіться з лейблом; ваші дані не надіслано.',sending:'НАДСИЛАННЯ...',success:'Заявку отримано! Це не підтвердження оплати.',error:'Не вдалося надіслати заявку. Спробуйте ще раз або зв’яжіться з лейблом.'}
+};
+const lang=()=>{let l=document.documentElement.lang;return l==='uk'?'ua':l==='ru'?'ru':'en'};
+function translate(){const t=labels[lang()];dialog.querySelectorAll('[data-order-i18n]').forEach(el=>{const k=el.dataset.orderI18n;if(t[k])el.textContent=t[k]})}
+function recalc(){const n=prices[license.value]||35;total.textContent='$'+n;price.value=String(n)}
+document.querySelectorAll('.beat-order-trigger').forEach(btn=>btn.addEventListener('click',()=>{beat.value=btn.dataset.beat||'KRASIVA';license.value='MP3 Lease';status.textContent='';recalc();translate();dialog.showModal()}));
+dialog.querySelector('[data-order-close]').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+license.addEventListener('change',recalc);
+document.querySelectorAll('.lang-switch button').forEach(btn=>btn.addEventListener('click',()=>{translate();status.textContent=''}));
+form.addEventListener('submit',async e=>{
+ e.preventDefault();if(!form.reportValidity())return;
+ const t=labels[lang()];
+ if(!/^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(FORMSPREE_ENDPOINT)){status.textContent=t.pending;return}
+ submit.disabled=true;status.textContent=t.sending;
+ try{
+  const response=await fetch(FORMSPREE_ENDPOINT,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+  if(!response.ok)throw new Error('Submission failed');
+  status.textContent=t.success;form.reset();recalc();
+ }catch(err){status.textContent=t.error}finally{submit.disabled=false}
+});
+recalc();
+})();
