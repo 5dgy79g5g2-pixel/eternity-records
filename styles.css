@@ -330,3 +330,16 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .etr-architecture{opacity:.48}
 .hero-home .hero-signal-rings{opacity:.08!important}
 @media(max-width:700px){.hero-home .hero-logo-wrap{width:95vw!important;top:44%!important}.hero-home .etr-shard{opacity:.55}}
+
+
+/* REFERENCE ART DIRECTION / industrial cathedral background */
+.hero-home{background:#010102 url("obsidian-scene.svg") center center / cover no-repeat!important}
+.hero-home::before{background:linear-gradient(90deg,rgba(0,0,0,.2),transparent 28%,transparent 72%,rgba(0,0,0,.2))!important;inset:0!important;filter:none!important}
+.hero-home .hero-signal-beam,.hero-home .hero-signal-rings,.hero-home .hero-grid,.hero-home .hero-orbit,.hero-home .etr-architecture{display:none!important}
+.hero-home .hero-stars{opacity:.25!important}
+.hero-home .etr-shards{z-index:6}
+.hero-home .etr-shard{clip-path:polygon(49% 0%,56% 38%,100% 86%,55% 71%,5% 100%,33% 41%)!important}
+.hero-home .hero-logo-wrap{z-index:7}
+.hero-home .hero-logo{mix-blend-mode:normal!important}
+.hero-home .etr-red-signal{z-index:5}
+@media(max-width:700px){.hero-home{background-position:center center!important}}
