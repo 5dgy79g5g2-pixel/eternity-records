@@ -206,3 +206,33 @@ ua:{nav:'МАГАЗИН БІТІВ',eyebrow:'04 / ETERNITY RECORDS',heading:'М�
 function apply(){const l=document.documentElement.lang==='uk'?'ua':document.documentElement.lang==='ru'?'ru':'en';document.querySelectorAll('[data-shop-lang]').forEach(el=>el.textContent=dict[l][el.dataset.shopLang]||'')}
 apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventListener('click',apply));
 })();
+
+/* ETERNITY custom beat players — one track at a time. */
+(()=>{
+ const audios=[...document.querySelectorAll('.beat-store audio.eternity-beat-audio')];
+ const fmt=t=>Number.isFinite(t)?Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0'):'0:00';
+ audios.forEach(audio=>{
+  const wrapper=document.createElement('div');wrapper.className='et-player';
+  const play=document.createElement('button');play.type='button';play.className='et-player-play';play.setAttribute('aria-label','Play beat');play.textContent='▶';
+  const middle=document.createElement('div');middle.className='et-player-middle';
+  const top=document.createElement('div');top.className='et-player-top';
+  const caption=document.createElement('span');caption.textContent='ETERNITY / AUDIO PREVIEW';
+  const time=document.createElement('span');time.className='et-player-time';time.textContent='0:00 / 0:00';
+  top.append(caption,time);
+  const seek=document.createElement('input');seek.type='range';seek.className='et-player-seek';seek.min='0';seek.max='1000';seek.value='0';seek.step='1';seek.setAttribute('aria-label','Seek audio');
+  middle.append(top,seek);
+  const mute=document.createElement('button');mute.type='button';mute.className='et-player-mute';mute.textContent='VOL';mute.setAttribute('aria-label','Mute or unmute');
+  const volume=document.createElement('input');volume.type='range';volume.className='et-player-volume';volume.min='0';volume.max='1';volume.step='.05';volume.value='1';volume.setAttribute('aria-label','Volume');
+  wrapper.append(play,middle,mute,volume);
+  audio.insertAdjacentElement('afterend',wrapper);
+  audio.addEventListener('play',()=>{audios.forEach(other=>{if(other!==audio)other.pause()});play.textContent='Ⅱ';play.setAttribute('aria-label','Pause beat');wrapper.classList.add('is-playing')});
+  audio.addEventListener('pause',()=>{play.textContent='▶';play.setAttribute('aria-label','Play beat');wrapper.classList.remove('is-playing')});
+  audio.addEventListener('ended',()=>{play.textContent='▶';wrapper.classList.remove('is-playing')});
+  const update=()=>{const duration=audio.duration;time.textContent=fmt(audio.currentTime)+' / '+fmt(duration);seek.value=Number.isFinite(duration)&&duration>0?Math.round(audio.currentTime/duration*1000):0;seek.style.setProperty('--progress',(seek.value/10)+'%')};
+  audio.addEventListener('timeupdate',update);audio.addEventListener('loadedmetadata',update);audio.addEventListener('durationchange',update);
+  play.addEventListener('click',()=>{if(audio.paused){audio.play().catch(()=>{play.textContent='▶'})}else audio.pause()});
+  seek.addEventListener('input',()=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=Number(seek.value)/1000*audio.duration;update()});
+  mute.addEventListener('click',()=>{audio.muted=!audio.muted;mute.textContent=audio.muted?'MUTED':'VOL';mute.setAttribute('aria-label',audio.muted?'Unmute':'Mute')});
+  volume.addEventListener('input',()=>{audio.volume=Number(volume.value);audio.muted=audio.volume===0;mute.textContent=audio.muted?'MUTED':'VOL'});
+ });
+})();
