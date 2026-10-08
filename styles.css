@@ -198,3 +198,25 @@ footer img[src="eternity-chrome.png"]{mix-blend-mode:screen;background:transpare
 .artist-card:hover .arrow,.artist-card:focus-visible .arrow,.producer-row:hover .producer-mark,.producer-row:focus-visible .producer-mark{background:#f4f4f4;color:#080808;border-color:#f4f4f4;transform:rotate(45deg)}
 @media(max-width:600px){.artist-card .arrow,.producer-row .producer-mark{width:36px;height:36px}.artist-card .arrow::after,.producer-row .producer-mark::after{width:13px;height:13px}}
 @media(prefers-reduced-motion:reduce){.artist-card .arrow,.producer-row .producer-mark{transition:none}}
+
+
+/* Cyrillic art direction: sharp, wide-tracked editorial type matching EN */
+html:lang(ru),html:lang(uk){font-family:'Manrope',Inter,Arial,sans-serif}
+html:lang(ru) body,html:lang(uk) body{font-family:'Manrope',Inter,Arial,sans-serif}
+html:lang(ru) .section-index,html:lang(uk) .section-index,
+html:lang(ru) .eyebrow,html:lang(uk) .eyebrow,
+html:lang(ru) .role,html:lang(uk) .role,
+html:lang(ru) .hero-topline,html:lang(uk) .hero-topline,
+html:lang(ru) .hero-bottomline,html:lang(uk) .hero-bottomline,
+html:lang(ru) .hero-sub,html:lang(uk) .hero-sub,
+html:lang(ru) .profile-back,html:lang(uk) .profile-back,
+html:lang(ru) .profile-meta,html:lang(uk) .profile-meta,
+html:lang(ru) .contact-links a,html:lang(uk) .contact-links a{font-family:'Roboto Condensed','Manrope',sans-serif;letter-spacing:.15em;font-weight:700;text-transform:uppercase}
+html:lang(ru) .section-head h2,html:lang(uk) .section-head h2,
+html:lang(ru) .profile-copy h2,html:lang(uk) .profile-copy h2,
+html:lang(ru) .big-link,html:lang(uk) .big-link,
+html:lang(ru) .services h3,html:lang(uk) .services h3{
+font-family:'Roboto Condensed','Manrope',sans-serif;font-weight:900;letter-spacing:.005em;line-height:1.02;text-transform:uppercase;font-stretch:condensed;overflow-wrap:anywhere}
+html:lang(ru) .profile-copy p,html:lang(uk) .profile-copy p,
+html:lang(ru) .manifesto-text,html:lang(uk) .manifesto-text{font-family:'Manrope',sans-serif;letter-spacing:.012em;line-height:1.75}
+@media(max-width:600px){html:lang(ru) .section-head h2,html:lang(uk) .section-head h2,html:lang(ru) .big-link,html:lang(uk) .big-link{font-size:clamp(38px,10vw,75px)}}
