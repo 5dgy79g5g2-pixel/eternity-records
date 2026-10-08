@@ -394,3 +394,22 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-tunnel-haze{from{transform:translate3d(-3%,0,0);opacity:.3}to{transform:translate3d(3%,-2%,0);opacity:.7}}
 @media(max-width:850px){.hero-home{background-size:cover!important;animation:etr-tunnel-mobile 19s ease-in-out infinite alternate!important}@keyframes etr-tunnel-mobile{from{background-position:48% 50%}to{background-position:52% 48%}}}
 @media(prefers-reduced-motion:reduce){.hero-home,.hero-home::before{animation:none!important}}
+
+
+/* MOTION ENGINE V17: visible 3D tilt and independently moving background crops */
+.hero-home .hero-logo-wrap{transform:translate3d(calc(-50% + var(--logo-x,0px)),calc(-50% + var(--logo-y,0px)),0) rotateX(var(--logo-rx,0deg)) rotateY(var(--logo-ry,0deg))!important;transition:transform .12s ease-out!important;transform-style:preserve-3d!important;perspective:900px!important}
+.hero-home .hero-logo{animation:etr-logo-float-v17 6s ease-in-out infinite!important}
+@keyframes etr-logo-float-v17{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.018)}}
+.hero-home .etr-backdrop-motion{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.hero-home .etr-chain-motion{position:absolute;top:-8%;bottom:-8%;width:23%;background-image:url("%D0%9E%D1%81%D0%BA%D0%BE%D0%BB%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%82%D0%BE%D0%BD%D0%BD%D0%B5%D0%BB%D1%8C%20%D0%B2%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%BC%20%D1%82%D1%83%D0%BC%D0%B0%D0%BD%D0%B5.png");background-size:auto 116%;opacity:.75;filter:contrast(1.2);mask-image:linear-gradient(90deg,#000 25%,transparent 100%);transform-origin:top center;animation:etr-chain-sway-left 7s ease-in-out infinite alternate}
+.hero-home .etr-chain-left{left:0;background-position:left center}
+.hero-home .etr-chain-right{right:0;background-position:right center;mask-image:linear-gradient(270deg,#000 25%,transparent 100%);animation:etr-chain-sway-right 9s ease-in-out infinite alternate}
+.hero-home .etr-scene-fog{position:absolute;inset:-15%;background:radial-gradient(ellipse 24% 45% at 28% 40%,rgba(95,8,16,.3),transparent),radial-gradient(ellipse 25% 45% at 77% 63%,rgba(70,8,12,.25),transparent);filter:blur(40px);animation:etr-fog-roam 11s ease-in-out infinite alternate}
+.hero-home .etr-scene-glow{position:absolute;inset:0;background:radial-gradient(circle at 10% 24%,rgba(255,15,35,.34),transparent 18%),radial-gradient(circle at 88% 70%,rgba(255,12,30,.3),transparent 18%);mix-blend-mode:screen;animation:etr-embers 8s steps(1,end) infinite}
+@keyframes etr-chain-sway-left{from{transform:translateX(-8px) rotate(-2deg)}to{transform:translateX(14px) rotate(2.4deg)}}
+@keyframes etr-chain-sway-right{from{transform:translateX(10px) rotate(2deg)}to{transform:translateX(-12px) rotate(-2.8deg)}}
+@keyframes etr-fog-roam{to{transform:translate3d(7%,-4%,0) scale(1.13)}}
+@keyframes etr-embers{0%,16%,18%,52%,54%,100%{opacity:.1}17%,53%{opacity:.85}}
+.hero-home .etr-shard{opacity:var(--o)!important;animation:etr-shard-flight var(--dur) linear infinite!important}
+@media(max-width:700px){.hero-home .etr-chain-motion{width:27%;opacity:.5}.hero-home .hero-logo{animation:etr-logo-float-v17 7s ease-in-out infinite!important}}
+@media(prefers-reduced-motion:reduce){.hero-home .hero-logo,.hero-home .etr-chain-motion,.hero-home .etr-scene-fog,.hero-home .etr-scene-glow{animation:none!important}}
