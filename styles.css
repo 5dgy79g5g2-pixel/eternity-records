@@ -343,3 +343,11 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .hero-logo{mix-blend-mode:normal!important}
 .hero-home .etr-red-signal{z-index:5}
 @media(max-width:700px){.hero-home{background-position:center center!important}}
+
+
+/* Visible chains: avoid stale cached SVG and keep backdrop unobstructed */
+.hero-home{background-image:url("obsidian-scene.svg?v=chains-visible-13")!important;background-color:#010101!important;background-size:cover!important;background-position:center!important}
+.hero-home::before{opacity:.15!important}
+.hero-home .hero-stars{opacity:.08!important}
+.hero-home .hero-screen-shine{opacity:.22!important}
+.hero-home .etr-shards{opacity:.75}
