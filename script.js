@@ -59,8 +59,8 @@ cta?.addEventListener('pointerleave',()=>cta.style.transform='');
  for(const artist of artists){
   const grid=document.getElementById('covers-'+artist.id);if(!grid)continue;
   if(artist.id==='blessty')continue; // Exact Apple Music song is statically pinned in HTML.
-  const pinned=artist.id==='ty3s'?grid.querySelector('.ty3s-pinned-release'):null;
-  grid.replaceChildren();if(pinned)grid.append(pinned);
+  const pinned=artist.id==='ty3s'?[...grid.querySelectorAll('.ty3s-pinned-release')]:[];
+  grid.replaceChildren();for(const item of pinned)grid.append(item);
   if(!artist.artistId&&artist.id!=='blessty'){
    const p=document.createElement('p');p.className='release-state';p.textContent='Обложки релизов SoundCloud пока не подтверждены.';grid.append(p);continue;
   }
