@@ -420,3 +420,15 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .hero-logo-wrap{background:transparent!important;box-shadow:none!important;filter:none!important;overflow:visible!important}
 .hero-home .hero-logo{background:transparent!important;mix-blend-mode:normal!important;filter:drop-shadow(0 0 12px rgba(214,223,239,.17))!important;opacity:1!important}
 .hero-home .hero-logo-wrap .logo-shine,.hero-home .hero-logo-wrap .logo-shine::after{display:none!important}
+
+
+/* V19 - glowing fissures, not fullscreen red flashes */
+.hero-home .etr-red-signal{display:none!important}
+.hero-home .etr-scene-glow{animation:none!important;opacity:.25!important;mix-blend-mode:screen!important;filter:blur(32px)}
+.hero-home .etr-fissure-light{position:absolute;display:block;pointer-events:none;z-index:4;mix-blend-mode:screen;opacity:.45;transform-origin:center center;filter:blur(9px);animation:etr-fissure-breathe 5.8s ease-in-out infinite alternate}
+.hero-home .fissure-left{left:8%;top:12%;width:25%;height:77%;background:radial-gradient(ellipse 12% 49% at 38% 50%,rgba(255,46,35,.9),rgba(200,5,22,.5) 24%,transparent 82%),radial-gradient(ellipse 26% 48% at 40% 52%,rgba(125,0,14,.5),transparent 78%);transform:rotate(-12deg);animation-duration:5.1s}
+.hero-home .fissure-right{right:8%;top:10%;width:26%;height:79%;background:radial-gradient(ellipse 11% 48% at 62% 50%,rgba(255,42,35,.85),rgba(180,0,18,.52) 26%,transparent 80%),radial-gradient(ellipse 30% 45% at 60% 49%,rgba(125,0,14,.55),transparent 80%);transform:rotate(13deg);animation-duration:6.7s;animation-delay:-2.4s}
+.hero-home .fissure-upper{left:31%;top:1%;width:38%;height:32%;background:radial-gradient(ellipse 39% 10% at 50% 55%,rgba(255,55,43,.8),rgba(145,3,20,.43) 38%,transparent 85%);filter:blur(17px);animation-duration:8s;animation-delay:-3.1s}
+@keyframes etr-fissure-breathe{0%{opacity:.2;filter:blur(13px) brightness(.8)}38%{opacity:.48;filter:blur(9px) brightness(1.05)}74%{opacity:.65;filter:blur(7px) brightness(1.2)}100%{opacity:.36;filter:blur(12px) brightness(.94)}}
+@media(max-width:700px){.hero-home .fissure-left{left:-4%}.hero-home .fissure-right{right:-4%}.hero-home .fissure-upper{top:8%}}
+@media(prefers-reduced-motion:reduce){.hero-home .etr-fissure-light{animation:none!important}}
