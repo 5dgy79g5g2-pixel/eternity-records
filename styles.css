@@ -270,3 +270,22 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-beam-turn{to{transform:rotate(360deg)}}
 @keyframes etr-rings-move{from{transform:scale(.94) rotate(-3deg);opacity:.28}to{transform:scale(1.09) rotate(4deg);opacity:.78}}
 @media(prefers-reduced-motion:reduce){.hero-home .hero-signal-beam,.hero-home .hero-signal-rings{animation:none}}
+
+
+/* ETERNITY / cinematic liquid-metal home, v6 */
+.hero-home{background:#020307!important;overflow:hidden;isolation:isolate}
+.hero-home .hero-signal-beam{inset:-60%;z-index:0;background:conic-gradient(from 20deg at 50% 50%,transparent 0deg,rgba(73,89,135,.22) 36deg,transparent 77deg,rgba(149,160,190,.13) 114deg,transparent 158deg,rgba(52,68,117,.24) 208deg,transparent 255deg,rgba(115,130,163,.16) 300deg,transparent 345deg);filter:blur(65px);animation:etr-beam-turn 31s linear infinite}
+.hero-home .hero-signal-rings{inset:-35%;z-index:1;background:repeating-radial-gradient(ellipse at 50% 48%,transparent 0px,transparent 110px,rgba(173,194,232,.15) 112px,transparent 114px,transparent 205px);mask-image:radial-gradient(ellipse,black 15%,transparent 65%);animation:etr-rings-move 15s ease-in-out infinite alternate}
+.hero-home::before{inset:-30%;z-index:0;background:radial-gradient(ellipse 32% 30% at 25% 40%,rgba(58,76,133,.48),transparent 85%),radial-gradient(ellipse 30% 38% at 75% 60%,rgba(96,108,147,.35),transparent 82%),radial-gradient(ellipse 26% 32% at 50% 80%,rgba(90,102,145,.26),transparent 90%);filter:blur(45px);animation:etr-ambient-drift 13s ease-in-out infinite alternate}
+.hero-home .hero-grid{opacity:.38!important;background-size:100px 100px!important;animation:etr-grid-drift 20s linear infinite!important}
+.hero-home .hero-stars{z-index:1;opacity:.8}
+.hero-home .hero-screen-shine{z-index:3}
+.hero-home .hero-logo-wrap{z-index:7;isolation:auto!important;filter:none!important;background:transparent!important}
+.hero-home .hero-logo{mix-blend-mode:screen!important;background:transparent!important;filter:contrast(1.3) brightness(1.1) drop-shadow(0 0 16px rgba(198,214,245,.32));opacity:1;animation:etr-logo-breathe 7s ease-in-out infinite!important}
+.hero-home .logo-shadow{opacity:0!important}
+.hero-home .logo-aura{background:radial-gradient(circle,rgba(110,145,210,.19),rgba(80,94,143,.075) 37%,transparent 73%);filter:blur(35px);animation:etr-aura-pulse 7s ease-in-out infinite}
+.hero-home .hero-logo-wrap::after{background:linear-gradient(110deg,transparent 34%,rgba(215,231,255,.18) 49%,transparent 64%);background-size:260% 100%;animation:etr-light-sweep 8s ease-in-out infinite}
+@keyframes etr-logo-breathe{0%,100%{filter:contrast(1.3) brightness(1.03) drop-shadow(0 0 12px rgba(190,208,244,.18))}48%{filter:contrast(1.4) brightness(1.25) drop-shadow(0 0 34px rgba(190,208,244,.45))}50%{filter:contrast(1.6) brightness(1.65) drop-shadow(0 0 40px rgba(225,235,255,.58))}51%{filter:contrast(1.4) brightness(1.12) drop-shadow(0 0 26px rgba(190,208,244,.3))}}
+@keyframes etr-aura-pulse{50%{transform:scale(1.22);opacity:.9}}
+@media(max-width:700px){.hero-home .hero-signal-beam{filter:blur(38px)}.hero-home .hero-logo{filter:contrast(1.3) brightness(1.1)}}
+@media(prefers-reduced-motion:reduce){.hero-home .hero-logo,.hero-home .logo-aura,.hero-home .hero-signal-beam,.hero-home .hero-signal-rings,.hero-home::before{animation:none!important}}
