@@ -379,3 +379,18 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-background-breathe{from{background-size:100% auto}to{background-size:110% auto}}
 @media(max-width:800px){.hero-home::before{background:radial-gradient(ellipse 57% 60% at 50% 44%,#000 0%,rgba(0,0,0,.95) 65%,transparent 100%),linear-gradient(to top,#000,transparent 28%)!important}.hero-home{animation:none!important;background-size:cover!important}}
 @media(prefers-reduced-motion:reduce){.hero-home,.hero-home .hero-logo{animation:none!important}}
+
+
+/* FINAL CLEAN ARTWORK / no baked-in branding, cinematic motion */
+.hero-home{background:#030203 url("%D0%9E%D1%81%D0%BA%D0%BE%D0%BB%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%82%D0%BE%D0%BD%D0%BD%D0%B5%D0%BB%D1%8C%20%D0%B2%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%BC%20%D1%82%D1%83%D0%BC%D0%B0%D0%BD%D0%B5.png?v=clean-tunnel-16") center center / cover no-repeat!important;animation:etr-tunnel-zoom 22s ease-in-out infinite alternate!important}
+.hero-home::before{display:block!important;content:"";position:absolute!important;inset:-5%!important;z-index:2!important;opacity:.6!important;filter:none!important;background:radial-gradient(ellipse 45% 38% at 50% 55%,transparent 10%,rgba(0,0,0,.15) 90%),linear-gradient(110deg,transparent 25%,rgba(125,0,15,.11) 42%,transparent 59%)!important;animation:etr-tunnel-haze 16s ease-in-out infinite alternate!important;pointer-events:none}
+.hero-home .hero-grid,.hero-home .hero-orbit,.hero-home .hero-signal-beam,.hero-home .hero-signal-rings,.hero-home .etr-architecture,.hero-home .hero-stars,.hero-home .hero-screen-shine{display:none!important}
+.hero-home .hero-logo-wrap{z-index:9!important}
+.hero-home .etr-shards{z-index:10!important;opacity:1!important}
+.hero-home .etr-shard{opacity:var(--o)!important;background:linear-gradient(108deg,#07070a 0%,#17171b 12%,#e3e5e9 18%,#27282c 25%,#050506 42%,#b9bec8 49%,#08090b 59%,#e8ecf1 65%,#17171b 75%,#020203 100%)!important;filter:drop-shadow(0 0 6px rgba(255,255,255,.25))!important}
+.hero-home .etr-red-signal{z-index:8!important}
+.hero-home .hero-topline,.hero-home .hero-bottomline,.hero-home .hero-status{z-index:12!important}
+@keyframes etr-tunnel-zoom{from{background-size:100% auto;background-position:50% 50%}to{background-size:110% auto;background-position:51% 48%}}
+@keyframes etr-tunnel-haze{from{transform:translate3d(-3%,0,0);opacity:.3}to{transform:translate3d(3%,-2%,0);opacity:.7}}
+@media(max-width:850px){.hero-home{background-size:cover!important;animation:etr-tunnel-mobile 19s ease-in-out infinite alternate!important}@keyframes etr-tunnel-mobile{from{background-position:48% 50%}to{background-position:52% 48%}}}
+@media(prefers-reduced-motion:reduce){.hero-home,.hero-home::before{animation:none!important}}
