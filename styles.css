@@ -351,3 +351,16 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .hero-stars{opacity:.08!important}
 .hero-home .hero-screen-shine{opacity:.22!important}
 .hero-home .etr-shards{opacity:.75}
+
+
+/* CINEMATIC REFERENCE BACKDROP — actual uploaded artwork */
+.hero-home{background:#020203 url("a_dark_cinematic_high_contrast_sci_fi_industrial.png?v=cinematic-14") center center / cover no-repeat!important}
+.hero-home::before{content:"";position:absolute;inset:0!important;background:linear-gradient(90deg,rgba(0,0,0,.12),transparent 28%,transparent 72%,rgba(0,0,0,.12))!important;filter:none!important;opacity:1!important;animation:none!important;z-index:1}
+.hero-home .hero-grid,.hero-home .hero-orbit,.hero-home .hero-signal-beam,.hero-home .hero-signal-rings,.hero-home .etr-architecture,.hero-home .hero-stars,.hero-home .hero-screen-shine{display:none!important}
+.hero-home .etr-shards{z-index:8;opacity:.65!important}
+.hero-home .etr-shard{opacity:var(--o);filter:drop-shadow(0 0 4px rgba(255,255,255,.16))}
+.hero-home .hero-logo-wrap{z-index:7!important}
+.hero-home .hero-logo{mix-blend-mode:normal!important}
+.hero-home .hero-topline,.hero-home .hero-bottomline,.hero-home .hero-status{z-index:10!important}
+.hero-home .etr-red-signal{z-index:6;opacity:0}
+@media(max-width:700px){.hero-home{background-position:center center!important}.hero-home .etr-shards{opacity:.45!important}}
