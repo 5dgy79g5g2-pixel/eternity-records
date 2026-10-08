@@ -530,3 +530,13 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .et-player-volume{background:#823a48;accent-color:#ff526c}
 @media(max-width:540px){.et-player{padding:14px 12px;gap:10px}.et-player-play{width:42px;height:42px;flex-basis:42px}}
 @media(prefers-reduced-motion:reduce){.et-player.is-playing .et-player-play{animation:none}}
+
+
+/* Global ETERNITY subliminal glitch flashes */
+.et-flash-layer{position:fixed;inset:0;z-index:180;pointer-events:none;overflow:hidden;isolation:isolate}
+.et-flash-word{position:absolute;left:var(--flash-x,50%);top:var(--flash-y,50%);transform:translate(-50%,-50%) skewX(-7deg);max-width:96vw;color:#fff;font:900 clamp(30px,9vw,150px)/.85 'Manrope','Inter',sans-serif;letter-spacing:-.075em;white-space:nowrap;text-transform:uppercase;opacity:0;filter:contrast(1.6);text-shadow:3px 0 #e32445,-3px 0 #46d8df;animation:et-flash-word .26s steps(2,end) both;mix-blend-mode:screen}
+.et-flash-word::after{content:attr(data-text);position:absolute;inset:0;color:#f22b4e;clip-path:inset(42% 0 39% 0);transform:translate(9px,-3px);opacity:.85}
+.et-flash-slice{position:absolute;left:0;width:100%;height:2px;top:var(--slice-y,45%);background:linear-gradient(90deg,transparent,#ee315577,#ffffffaa,#ef2e5077,transparent);opacity:0;box-shadow:0 0 14px #df294a88;animation:et-flash-scan .22s steps(2,end) both}
+@keyframes et-flash-word{0%,20%{opacity:0;transform:translate(-51%,-50%) skewX(-12deg)}25%,47%{opacity:.32;transform:translate(-49%,-50%) skewX(5deg)}48%,67%{opacity:.07;transform:translate(-52%,-50%) skewX(-8deg)}68%,80%{opacity:.25;transform:translate(-50%,-50%) skewX(-3deg)}100%{opacity:0}}
+@keyframes et-flash-scan{0%{opacity:0;transform:translateX(-18%)}30%,65%{opacity:.48;transform:translateX(8%)}100%{opacity:0;transform:translateX(25%)}}
+@media(prefers-reduced-motion:reduce){.et-flash-layer{display:none!important}}
