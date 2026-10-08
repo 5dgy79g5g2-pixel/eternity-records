@@ -80,3 +80,15 @@ cta?.addEventListener('pointerleave',()=>cta.style.transform='');
   }catch(e){const p=document.createElement('p');p.className='release-state';p.textContent='Обложки временно недоступны.';grid.append(p)}
  }
 })();
+/* Resolve the exact Apple Music song ID; never match unrelated Blessty profiles. */
+(async function(){
+ const img=document.getElementById('blessty-plachu-cover');if(!img)return;
+ try{
+  const response=await fetch('https://itunes.apple.com/lookup?id=1859773996&country=ua');
+  if(!response.ok)throw Error('Artwork unavailable');
+  const data=await response.json();
+  const song=(data.results||[]).find(x=>Number(x.trackId)===1859773996&&x.artworkUrl100);
+  if(!song)throw Error('No official artwork');
+  img.src=song.artworkUrl100.replace(/100x100bb/g,'600x600bb');
+ }catch(e){img.alt='Обложка Плачу временно недоступна'}
+})();
