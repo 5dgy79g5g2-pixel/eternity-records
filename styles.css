@@ -187,3 +187,7 @@ body{font-family:'Manrope','Inter',Arial,sans-serif}
 88%{transform:translate(-3px,-1px);clip-path:inset(46% 0 36% 0)}
 }
 @media(prefers-reduced-motion:reduce){.etr-glitch-hover:hover::before,.etr-glitch-hover:hover::after,.etr-glitch-hover:focus-visible::before,.etr-glitch-hover:focus-visible::after{animation:none;opacity:0}.etr-glitch-hover:hover{ text-shadow:none }}
+
+/* Footer chrome emblem: blend black artwork background into the site */
+footer{isolation:isolate}
+footer img[src="eternity-chrome.png"]{mix-blend-mode:screen;background:transparent;filter:contrast(1.22) brightness(1.12) drop-shadow(0 0 12px rgba(255,255,255,.12));}
