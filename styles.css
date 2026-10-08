@@ -440,3 +440,11 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .hero-logo-wrap{z-index:9!important}
 .hero-home .etr-shards{z-index:6!important}
 @media(prefers-reduced-motion:reduce){.hero-home .etr-live-canvas{display:none!important}}
+
+
+/* V21 clarity: stop ghosting caused by translucent copies of the same background */
+.hero-home .etr-live-canvas{opacity:1!important;image-rendering:auto!important}
+.hero-home .etr-chain-motion{display:none!important}
+.hero-home .etr-scene-fog{opacity:.35!important;filter:blur(24px)!important}
+.hero-home .etr-fissure-light{opacity:.22!important}
+.hero-home{animation:none!important;background-size:cover!important;background-position:center center!important}
