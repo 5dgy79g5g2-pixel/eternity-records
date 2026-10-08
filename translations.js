@@ -81,6 +81,22 @@ for(const selector of extraSelectors){
   if(entry)extraNodes.push({node,entry});
  }
 }
+
+const englishOverrides={
+"KID — продюсер Eternity Records. Он не любит много рассказывать о себе, предпочитая, чтобы за него говорила музыка.":"KID is a producer at Eternity Records. He prefers to keep his personal life private and let the music speak for itself.",
+"ANUFRIEV — украинский музыкальный продюсер и звукорежиссёр из Вышгорода. Занимается музыкой с 2018 года, работая на пересечении трэпа, рэпа, рока, поп-музыки, хайперпопа и хайпертрэпа.":"ANUFRIEV is a Ukrainian music producer and sound engineer from Vyshhorod. Active since 2018, he works across trap, rap, rock, pop, hyperpop and hypertrap.",
+"Сотрудничал с многочисленными независимыми артистами, занимаясь музыкальным продакшном и работой со звуком.":"He has collaborated with numerous independent artists on music production and sound engineering.",
+"Также работает саунд-инженером на студии Oper 8 в Амстердаме, где занимается сведением записей независимых исполнителей.":"He also works as a sound engineer at Oper 8 studio in Amsterdam, mixing recordings for independent artists.",
+"Игорь Ануфриев · Вышгород, Украина":"Ihor Anufriev · Vyshhorod, Ukraine",
+"ДИСКОГРАФИЯ":"DISCOGRAPHY",
+"Релизы артистов лейбла · только оригинальные обложки":"Releases by label artists · original cover art only",
+"Обложки релизов SoundCloud пока не подтверждены.":"SoundCloud release cover art has not yet been verified.",
+"Открыть каталог релизов ↗":"OPEN RELEASE CATALOG ↗"
+};
+for(const [original,en] of Object.entries(englishOverrides)){
+ const entry=extraTranslationMap.get(original);if(entry)entry.en=en;
+}
+
 const originalSetLanguage=setLanguage;
 setLanguage=function(lang){
  originalSetLanguage(lang);
