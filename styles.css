@@ -259,3 +259,14 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 @keyframes etr-stars-drift{to{transform:translate3d(-1.5%,2%,0)}}
 @media(max-width:700px){.hero-home::after{opacity:.13}.hero-home .hero-logo-wrap::after{opacity:.3}}
 @media(prefers-reduced-motion:reduce){.hero-home::before,.hero-home::after,.hero-home .hero-grid,.hero-home .hero-orbit,.hero-home .hero-logo,.hero-home .hero-logo-wrap::after,.hero-home .hero-screen-shine,.hero-home .hero-stars{animation:none!important}}
+
+
+/* HOME SIGNAL V5: intentionally visible cinematic background motion */
+.hero-home .hero-signal-beam{position:absolute;inset:-50%;pointer-events:none;z-index:1;background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,transparent 44deg,rgba(180,195,220,.11) 61deg,transparent 83deg,transparent 165deg,rgba(190,205,230,.075) 185deg,transparent 206deg,transparent 360deg);animation:etr-beam-turn 24s linear infinite;mix-blend-mode:screen}
+.hero-home .hero-signal-rings{position:absolute;inset:-15%;pointer-events:none;z-index:1;background:repeating-radial-gradient(ellipse at 50% 50%,transparent 0px,transparent 95px,rgba(190,200,220,.085) 97px,transparent 99px,transparent 170px);opacity:.7;animation:etr-rings-move 12s ease-in-out infinite alternate}
+.hero-home .hero-logo-wrap{z-index:6}
+.hero-home .hero-topline,.hero-home .hero-bottomline,.hero-home .hero-status{z-index:8}
+.hero-home .hero-grid{opacity:.6!important;animation:etr-grid-drift 13s linear infinite!important}
+@keyframes etr-beam-turn{to{transform:rotate(360deg)}}
+@keyframes etr-rings-move{from{transform:scale(.94) rotate(-3deg);opacity:.28}to{transform:scale(1.09) rotate(4deg);opacity:.78}}
+@media(prefers-reduced-motion:reduce){.hero-home .hero-signal-beam,.hero-home .hero-signal-rings{animation:none}}
