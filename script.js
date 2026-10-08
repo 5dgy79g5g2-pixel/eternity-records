@@ -105,3 +105,11 @@ const render=()=>{framePending=false;const rect=hero.getBoundingClientRect();con
 const schedule=()=>{if(!framePending){framePending=true;requestAnimationFrame(render)}};
 window.addEventListener('scroll',schedule,{passive:true});if(!mobile)window.addEventListener('pointermove',e=>{mouseX=e.clientX/innerWidth-.5;mouseY=e.clientY/innerHeight-.5;schedule()},{passive:true});render();
 })();
+
+
+/* V17: reliable cursor-follow logo (CSS variables bypass earlier !important transforms) */
+(()=>{const hero=document.querySelector('.hero-home'),logo=hero?.querySelector('.hero-logo-wrap');if(!hero||!logo||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+let tx=0,ty=0,x=0,y=0;const desktop=matchMedia('(pointer:fine)').matches;
+if(desktop){window.addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2},{passive:true});}
+function tick(){x+=(tx-x)*.09;y+=(ty-y)*.09;logo.style.setProperty('--logo-x',(x*30).toFixed(2)+'px');logo.style.setProperty('--logo-y',(y*20).toFixed(2)+'px');logo.style.setProperty('--logo-rx',(-y*12).toFixed(2)+'deg');logo.style.setProperty('--logo-ry',(x*15).toFixed(2)+'deg');requestAnimationFrame(tick)}tick();
+})();
