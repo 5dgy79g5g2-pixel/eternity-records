@@ -448,3 +448,16 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
 .hero-home .etr-scene-fog{opacity:.35!important;filter:blur(24px)!important}
 .hero-home .etr-fissure-light{opacity:.22!important}
 .hero-home{animation:none!important;background-size:cover!important;background-position:center center!important}
+
+/* Eternity Beat Store: responsive side-by-side license pricing */
+.beat-shop-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:clamp(26px,5vw,84px);align-items:start;margin-top:36px}
+.beat-shop-list{min-width:0}
+.beat-shop-list .beat-store:first-child{margin-top:0!important}
+.beat-pricing{position:sticky;top:90px;border-top:1px solid #555;padding-top:34px;min-width:0}
+.beat-pricing-title{font:800 clamp(25px,3.1vw,43px)/1.05 'Manrope',sans-serif;letter-spacing:-.045em;margin:22px 0 34px;text-transform:uppercase}
+.beat-pricing-title span{color:#777}
+.beat-pricing-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid #303030;padding:19px 0;font:700 clamp(13px,1.35vw,17px)/1.4 'Manrope',sans-serif;letter-spacing:.015em}
+.beat-pricing-row strong{font:800 clamp(13px,1.35vw,17px)/1.4 'Manrope',sans-serif;text-align:right;white-space:nowrap}
+.beat-pricing-contact{display:inline-block;margin-top:30px;padding:16px 20px;border:1px solid #aaa;color:#fff;text-decoration:none;font:800 13px/1.4 'Manrope',sans-serif;letter-spacing:.05em;transition:background .2s,color .2s}
+.beat-pricing-contact:hover{background:#fff;color:#080808}
+@media(max-width:900px){.beat-shop-layout{grid-template-columns:1fr}.beat-pricing{position:static;margin-top:28px}.beat-pricing-row{padding:16px 0}}
