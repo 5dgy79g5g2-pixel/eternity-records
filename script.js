@@ -113,3 +113,49 @@ let tx=0,ty=0,x=0,y=0;const desktop=matchMedia('(pointer:fine)').matches;
 if(desktop){window.addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*2;ty=(e.clientY/innerHeight-.5)*2},{passive:true});}
 function tick(){x+=(tx-x)*.09;y+=(ty-y)*.09;logo.style.setProperty('--logo-x',(x*30).toFixed(2)+'px');logo.style.setProperty('--logo-y',(y*20).toFixed(2)+'px');logo.style.setProperty('--logo-rx',(-y*12).toFixed(2)+'deg');logo.style.setProperty('--logo-ry',(x*15).toFixed(2)+'deg');requestAnimationFrame(tick)}tick();
 })();
+
+
+/* V20: moving scene fragments sampled directly from the original tunnel image.
+   Independent polygon crops, perspective, parallax, fog and reflected sparks. */
+(()=>{
+const hero=document.querySelector('.hero-home'),canvas=document.getElementById('etr-live-canvas');
+if(!hero||!canvas||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;
+const image=new Image();image.src='Осколочный тоннель в красном тумане.png';
+let W=1,H=1,dpr=1,mx=0,my=0,px=0,py=0,visible=true;
+const rnd=n=>{const v=Math.sin(n*127.1+91.37)*43758.5453;return v-Math.floor(v)};
+const fragments=Array.from({length:36},(_,i)=>{
+const side=i%2===0?0:1,cluster=i%5,depth=.35+rnd(i+4)*1.4;
+const x=side===0?.035+rnd(i+10)*.30:.665+rnd(i+10)*.30;
+const y=.04+rnd(i+26)*.91;
+return {x,y,side,depth,w:.016+rnd(i+34)*.05,h:.04+rnd(i+48)*.13,phase:rnd(i+59)*6.28,speed:.25+rnd(i+73)*.75,angle:(rnd(i+82)-.5)*.55,shape:i%4};
+});
+const embers=Array.from({length:55},(_,i)=>({x:rnd(i+211),y:rnd(i+391),speed:.13+rnd(i+501)*.45,size:.5+rnd(i+619)*1.9,phase:rnd(i+721)*6.28}));
+const fog=Array.from({length:10},(_,i)=>({x:rnd(i+902),y:rnd(i+1002),r:.11+rnd(i+1102)*.19,speed:.15+rnd(i+1202)*.2,phase:rnd(i+1302)*6.28}));
+function resize(){const r=hero.getBoundingClientRect();W=Math.max(1,r.width);H=Math.max(1,r.height);dpr=Math.min(devicePixelRatio||1,1.7);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+new ResizeObserver(resize).observe(hero);resize();
+window.addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2},{passive:true});
+const io=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true});io.observe(hero);
+function frame(ms){requestAnimationFrame(frame);if(!visible||document.hidden)return;
+const t=ms*.001;px+=(mx-px)*.035;py+=(my-py)*.035;ctx.clearRect(0,0,W,H);
+const iw=image.naturalWidth,ih=image.naturalHeight;
+if(iw&&ih){
+const scale=Math.max(W/iw,H/ih),drawW=iw*scale,drawH=ih*scale,offsetX=(W-drawW)/2,offsetY=(H-drawH)/2;
+for(const f of fragments){
+const bx=f.x*W,by=f.y*H,fw=f.w*W,fh=f.h*H;
+const drift=Math.sin(t*f.speed+f.phase),float=Math.cos(t*f.speed*.7+f.phase);
+const dx=drift*(12+18*f.depth)+px*23*f.depth,dy=float*(9+15*f.depth)+py*13*f.depth;
+const sx=(bx-offsetX)/scale,sy=(by-offsetY)/scale,sw=fw/scale,sh=fh/scale;
+if(sx<0||sy<0||sx+sw>iw||sy+sh>ih)continue;
+ctx.save();ctx.translate(bx+dx,by+dy);ctx.rotate(f.angle+Math.sin(t*f.speed*.5+f.phase)*.13);ctx.globalAlpha=.43+.19*Math.sin(t*.8+f.phase);
+ctx.beginPath();ctx.moveTo(-fw*.48,-fh*.48);ctx.lineTo(fw*(f.shape%2?.45:.18),-fh*.48);ctx.lineTo(fw*.49,fh*(f.shape%3?.44:.12));ctx.lineTo(-fw*.38,fh*.5);ctx.closePath();ctx.clip();
+ctx.drawImage(image,sx,sy,sw,sh,-fw/2,-fh/2,fw,fh);
+ctx.globalAlpha=.15;ctx.strokeStyle='#d9e2ed';ctx.lineWidth=.7;ctx.stroke();ctx.restore();
+}
+}
+ctx.save();ctx.globalCompositeOperation='screen';
+for(const f of fog){const x=(f.x+.045*Math.sin(t*f.speed+f.phase))*W,y=(f.y+.06*Math.cos(t*f.speed*.7+f.phase))*H;const radius=f.r*Math.max(W,H);const g=ctx.createRadialGradient(x,y,0,x,y,radius);g.addColorStop(0,'rgba(114,13,22,.035)');g.addColorStop(.45,'rgba(95,9,18,.018)');g.addColorStop(1,'rgba(40,0,5,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,radius,0,Math.PI*2);ctx.fill()}
+for(const e of embers){const x=(e.x+Math.sin(t*.3+e.phase)*.017)*W,y=((e.y-t*e.speed*.065)%1+1)%1*H;const pulse=.25+.4*(.5+.5*Math.sin(t*1.8+e.phase));ctx.globalAlpha=pulse;ctx.fillStyle=e.size>1.5?'#ff5660':'#bd2631';ctx.beginPath();ctx.arc(x,y,e.size,0,Math.PI*2);ctx.fill()}
+ctx.restore();
+}requestAnimationFrame(frame);
+})();
