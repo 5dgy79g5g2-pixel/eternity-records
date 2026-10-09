@@ -223,7 +223,7 @@ apply();document.querySelectorAll('.lang-switch button').forEach(b=>b.addEventLi
   middle.append(top,seek);
   const mute=document.createElement('button');mute.type='button';mute.className='et-player-mute';mute.textContent='VOL';mute.setAttribute('aria-label','Mute or unmute');
   const volume=document.createElement('input');volume.type='range';volume.className='et-player-volume';volume.min='0';volume.max='1';volume.step='.05';volume.value='1';volume.setAttribute('aria-label','Volume');
-  wrapper.append(play,middle,mute,volume);
+  const download=document.createElement('a');download.className='et-player-download';download.textContent='↓ MP3';download.setAttribute('aria-label','Download beat MP3');download.title='Download MP3 preview';const source=audio.querySelector('source');if(source?.getAttribute('src')){download.href=source.getAttribute('src');download.download=decodeURIComponent(source.getAttribute('src').split('/').pop().split('?')[0]);}else{download.hidden=true;}wrapper.append(play,middle,mute,volume,download);
   audio.insertAdjacentElement('afterend',wrapper);
   audio.addEventListener('play',()=>{audios.forEach(other=>{if(other!==audio)other.pause()});play.textContent='Ⅱ';play.setAttribute('aria-label','Pause beat');wrapper.classList.add('is-playing')});
   audio.addEventListener('pause',()=>{play.textContent='▶';play.setAttribute('aria-label','Play beat');wrapper.classList.remove('is-playing')});
