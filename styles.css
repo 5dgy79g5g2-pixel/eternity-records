@@ -557,3 +557,9 @@ html:lang(ru) .manifesto-text p:first-child,html:lang(uk) .manifesto-text p:firs
  .et-custom-cursor.et-down{width:16px;height:16px}
  .et-custom-cursor.et-text{opacity:0}
 }
+
+/* Download button integrated into the crimson beat player */
+.et-player-download{position:relative;z-index:2;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:34px;padding:0 12px;border:1px solid #d94b64a8;border-radius:8px;color:#ffe3e9!important;background:linear-gradient(135deg,#86213b88,#350c1b88);font-size:11px;font-weight:800;letter-spacing:.08em;text-decoration:none!important;white-space:nowrap;transition:background .18s,border-color .18s,box-shadow .18s}
+.et-player-download:hover{background:#b3294b;border-color:#ff8399;box-shadow:0 0 18px #d62c5066;color:white!important}
+.et-player-download[hidden]{display:none!important}
+@media(max-width:540px){.et-player-download{padding:0 9px;font-size:10px;min-height:32px}}
